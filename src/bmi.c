@@ -21,9 +21,11 @@ static char *trim_whitespace(char *str) {
 
 int main(void) {
     char line[256];
-    double height_cm, weight_kg;
+    int height_cm, weight_kg;
 
     while (1) {
+        printf("Enter height in cm and weight in kg, or type quit to exit:\n");
+
         if (!fgets(line, sizeof(line), stdin)) {
             break;
         }
@@ -37,20 +39,9 @@ int main(void) {
             break;
         }
 
-        if (sscanf(text, "%lf %lf", &height_cm, &weight_kg) != 2) {
-            if (sscanf(text, "%lf", &height_cm) == 1) {
-                if (!fgets(line, sizeof(line), stdin)) {
-                    break;
-                }
-                text = trim_whitespace(line);
-                if (sscanf(text, "%lf", &weight_kg) != 1) {
-                    printf("Invalid input\n");
-                    continue;
-                }
-            } else {
-                printf("Invalid input\n");
-                continue;
-            }
+        if (sscanf(text, "%d %d", &height_cm, &weight_kg) != 2) {
+            printf("Invalid input\n");
+            continue;
         }
 
         if (height_cm <= 0 || weight_kg <= 0) {
